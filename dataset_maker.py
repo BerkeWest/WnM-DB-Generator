@@ -7,7 +7,7 @@ from main import main
 fake = Faker("tr_TR")  
 
 # Constants
-num_entries = 1000
+num_entries = 5000
 start_id = 1
 start_join_date = pd.Timestamp("2023-01-01")
 end_join_date = pd.Timestamp("2024-06-30")
@@ -21,70 +21,63 @@ def assign_city(attends_university, university):
     else:
         return random.choice(cities)  # Choose a random city otherwise
 
-
-
-names = [
-    "Ahmet", "Mehmet", "Mustafa", "Fatma", "Ayşe", "Emine", "Hatice", "Ali", "Hüseyin", "Hasan",
-    "Yusuf", "Osman", "Ömer", "İsmail", "İbrahim", "Murat", "Süleyman", "Hakan", "Halil", "İsmet",
-    "Nur", "Zeynep", "Derya", "Burak", "Elif", "Gökhan", "Seda", "Cem", "Deniz", "Kemal", "Gül",
-    "Serkan", "Sevgi", "Selim", "Cihan", "Ebru", "Erdem", "Can", "Gizem", "Ercan", "Yasemin",
-    "Yasin", "Ferhat", "Berkay", "Ceren", "Oğuz", "Tuğçe", "Tolga", "Özge", "Ege", "Davud", "Batuhan",
-    "Fatih", "Mert", "Berke", "Yiğit", "Efe", "Miraç", "Atlas", "Eylül", "Derin", "Altin", "Yaren",
-    "Emir", "Aleyna", "Berat", "Duygu", "Irem", "Esra", "Azra", "Yakup", "Bahar", "Merve", "Büşra",
-    "Cansu", "Eda", "Recep", "Selen", "Cafer", "Tuğba", "Kenan", "Orhan", "Kübra", "Harun", "Levent",
-    "Didem", "Koray", "Arzu", "Engin", "Çağla", "Taner", "Nihan", "Şeyma", "Serdar", "Bilge", "Nisa",
-    "Doğan", "Rüya", "Volkan", "Pınar", "Erdal", "Burcu", "Dilek", "Esma", "Umut", "Sema", "Hülya",
-    "Bülent", "Yavuz", "Onur", "Mediha", "Tufan", "Leyla", "Tanju", "Neşe", "Verda", "Güliz", "Bahadır",
-    "Şule", "Doğru", "Aylin", "Kaya", "Semra", "Zeliha", "Erkan", "Nazlı", "Şenay", "Gülden", "Fırat",
-    "Figen", "Alper", "Billur", "Lale", "Arda", "Nihal", "Canan", "Ferdi", "Sevinç",
-    "Tuncay", "Serpil", "Nurgül", "Gülay", "Fikret", "Reyhan", "Suna", "Hamza", "Berk", "Berkan",
-    "Zehra", "Sultan", "Aysel", "Gülsüm", "Sevil", "Şükrü", "Gülşen", "Şeref", "Gönül",
-    "Feride", "Şaban", "Sibel", "Adem", "Fadime", "Metin", "Gülten", "Turan", "Nalan", "Serap", "Sedat",
-    "Tuncay", "Nurdan", "Mehmet Ali", "Sevim", "Ersin", "Tülay", "Hakkı", "Leyla", "Mehmet Emin", 
-    "Handan", "Ethem", "Erhan", "Salih", "Seher", "Fulya", "Perihan", "Özcan", "Bekir", "Hamdi", "Gülizar",
-    "Ercüment", "Gülşah", "Ahmet Ali", "Ayşegül", "Zeki", "Ali Rıza", "Filiz", "Özlem", "Şevket", "Asuman",
-    "Sinan", "Necati", "Ahu", "Emin", "Nesrin", "Müge", "Yakup", "Şule", "Nurettin", "Ayfer", "Kadir",
-    "Yeliz", "Şengül", "Barış", "Fuat", "Selda", "Nihat", "Seval", "Mikail", "Nazan", "Vedat", "Gülay",
-    "Mustafa Kemal", "Sevgi", "Mahir", "Hilmi", "Zerrin", "Yılmaz", "Aysun", "Şahin", "Pınar",
-    "Abdullah", "Neslihan", "Emel", "Halit", "Nesibe", "Elif", "Bülent", "Sevinç", "Necmettin",
-    "Şerif", "Nuray", "Cemal", "Ayla", "Özlem", "Cengiz", "Musa", "Meral", "Şebnem", "Nilgün",
-    "Selçuk", "Songül", "Halil İbrahim", "Muhammet", "Ferit", "Hikmet", "Kazım", "Eylem", "İnci",
-    "Cüneyt", "Erdoğan", "Feray", "Okan", "Mehtap", "Kamil", "Semiha", "Ayten", "Meryem", "Sami", "Nuriye",
-    "Feridun", "Tülin", "Cahit", "Şenay", "Muharrem", "Füsun", "Birsen", "Kerim",
-    "Savaş", "Birgül", "Berrin", "İlhan", "Gülsüm", "Adnan", "Yunus", "Şükran",
-    "Atilla", "Figen", "Nergis", "Behçet", "Gülcan", "Selahattin", "Dilek", "Kader", "Tevfik",
-    "Mazlum", "Merve", "Filiz", "Tarık", "Selami",
-    "Gülsen", "Ferhan", "Müjgan", "Orçun", "Asım", "Gülgün", "Veli", "Necip",
-    "Feyza", "Haluk", "Gülbahar", "Ekrem", "Rıza", "Rıfat", "Nermin", "Burak", "Güllü",
-    "Ergin", "Yıldırım", "Soner", "Önder", "Özgür", "Ümit", "Özlem"
+male_names = [
+    "Abdullah", "Adem", "Adnan", "Ahmet", "Ahmet Ali", "Ali", "Ali Rıza", "Alp", "Alper", "Alperen", "Altın", "Arda",
+    "Asım", "Atilla", "Bahadır", "Barış", "Batuhan", "Bekir", "Berk", "Berkay", "Berkan", "Berat",
+    "Berke", "Bilge", "Bülent", "Burak", "Cafer", "Cahit", "Can", "Cem", "Cemal", "Cengiz", "Cihan",
+    "Cüneyt", "Çağın", "Davud", "Deniz", "Derya", "Doğan", "Ege", "Emin", "Emir", "Ercan", "Ercüment", "Erdal",
+    "Erdem", "Ersin", "Erdoğan", "Ergin", "Erhan", "Ethem", "Efe", "Ekrem", "Engin", "Emin",
+    "Ercan", "Eren", "Ersin", "Erkan", "Ethem", "Evren", "Fahrettin", "Fatih", "Ferdi", "Ferhat",
+    "Ferit", "Fikret", "Fırat", "Fuat", "Gökay", "Gökalp", "Gökhan", "Güven", "Güvenç", "Hakkı", "Halil", "Halil İbrahim", "Hamdi",
+    "Hamit", "Harun", "Hasan", "Hikmet", "Hilmi", "Hüseyin", "Hüsnü", "İbrahim", "İhsan", "İlhan",
+    "İrfan", "İsmail", "İzzet", "Kadir", "Kemal", "Kenan", "Kerim", "Kubilay", "Koray", "Kıvanç", "Levent",
+    "Lütfi", "Mahmut", "Mehmet", "Mehmet Ali", "Mehmet Emin", "Metin", "Mesut", "Mikail", "Muhammet", "Murat",
+    "Mustafa", "Mustafa Kemal", "Nihat", "Nuri", "Okan", "Onur", "Orhan", "Osman", "Ömer", "Özcan",
+    "Ragıp", "Ramazan", "Recep", "Remzi", "Rıfat", "Rıza", "Rüstem", "Sadık", "Salih", "Sami",
+    "Sedat", "Selami", "Selçuk", "Selim", "Serdar", "Süleyman", "Sinan", "Soner", "Suat", "Süleyman",
+    "Şaban", "Şahin", "Şerif", "Şevket", "Tanju", "Tarık", "Tayfun", "Tufan", "Tuncay", "Turan",
+    "Uğur", "Umut", "Ümit", "Veli", "Yahya", "Yakup", "Yasin", "Yavuz", "Yılmaz", "Yunus", "Yusuf",
+    "Zafer", "Zeki", "Zeynel"
 ]
 
-
+female_names = [
+    "Ahu", "Afet", "Alev", "Ayla", "Aylin", "Ayfer", "Ayşe", "Ayşegül", "Ayten", "Aysel", "Aysun",
+    "Azra", "Bahar", "Belma", "Bengi", "Bengisu", "Beren", "Beril", "Berna", "Berrin", "Bilge", "Birgül", "Birsen", "Birsu", "Büşra", "Billur", "Burcu", "Buse", "Busenur", "Ceren", "Cansu",
+    "Cemile", "Çağla", "Deniz", "Derya", "Dilek", "Duygu", "Ebru", "Ece", "Eda", "Elif", "Emine", "Esma",
+    "Esra", "Eylül", "Fadime", "Fatma", "Feray", "Ferda", "Feyza", "Filiz", "Figen", "Fikriye", "Fulya",
+    "Füsun", "Gizem", "Gülay", "Gülbahar", "Gülben", "Gülden", "Gülgün", "Güliz", "Gülizar", "Güllü", "Gülsüm",
+    "Gülşen", "Gülsen", "Gülten", "Gülşah", "Hale", "Hande", "Havva", "Hülya", "İclal", "İdil", "İda",
+    "İlknur", "İnci", "Işıl", "Işık", "Kadriye", "Kader", "Kübra", "Leyla", "Leman", "Lale",
+    "Mazlum", "Mediha", "Mehtap", "Melek", "Meral", "Meryem", "Merve", "Mevlüde", "Mualla",
+    "Mukadder", "Mukaddes", "Müge", "Munise", "Müjgan", "Müşerref", "Naciye", "Nalan", "Nazan", "Nergis",
+    "Nesibe", "Neslihan", "Nihal", "Nilgün", "Nur", "Nuran", "Nurgül", "Nurhan", "Nuriye",
+    "Nursel", "Nurten", "Olcay", "Oya", "Perihan", "Pınar", "Rukiye", "Rüya", "Sadiye", "Saime", "Sema",
+    "Samiye", "Seda", "Seden", "Seher", "Selda", "Selen", "Selime", "Selin", "Semiha", "Semra",
+    "Seval", "Sevgi", "Sevim", "Sevinç", "Sevtap", "Sibel", "Songül", "Suheyla", "Süheyla", "Sultan", "Suna",
+    "Şafak", "Şaziye", "Şebnem", "Şehnaz", "Şehri", "Şehval", "Şemsi", "Şermin", "Şerife", "Şeyma",
+    "Şevval", "Şule", "Şükran", "Tansu", "Taybet", "Tülay", "Tülin", "Ülkü", "Ülker", "Ümmü", "Vildan",
+    "Yaren", "Yasemin", "Yeşim", "Yeliz", "Yurdagül", "Zehra", "Zeliha", "Zerrin", "Zeynep", "Zinnur","Zuhal"
+]
 
 surnames = [
-    "Yılmaz", "Kaya", "Demir", "Şahin", "Çelik", "Öztürk", "Yıldız", "Kılıç", "Arslan", "Koç",
-    "Aydın", "Doğan", "Çetin", "Kurt", "Koca", "Aslan", "Aksoy", "Çakır", "Turan", "Taş",
-    "Kaplan", "Özdemir", "Ateş", "Güler", "Karadağ", "Güneş", "Çoban", "Bulut", "Polat", "Şimşek",
-    "Gündoğdu", "Kurtuluş", "Erdoğan", "Şen", "Yalçın", "Çalışkan", "Akyüz", "Yılmazer", "Korkmaz", "Avcı",
-    "Uysal", "Şentürk", "Gür", "Er", "Sarı", "Koçak", "Çetinkaya", "Türk", "Alkan",
-    "Serbest", "Bozkurt", "Bayraktar", "Aydemir", "Gül", "Erbay", "Şahiner", "Erdem", "Uzun",
-    "Tosun", "Erçetin", "Gürbüz", "Yaman", "Sönmez", "Taşkın", "Koçyiğit", "Kartal",
-    "Orhan", "Tunç", "Baş", "Can", "Duman", "Bayram", "Cengiz", "Göçer", "Büyük", "Ay",
-    "Özcan", "Pamuk", "Akgül", "Demirel", "Özkan", "Demircan", "Bora", "Batı", 
-    "Işık", "Bıçakhan", "Şolta", "Kazanan", "Tatlıtuğ", "Turgal", "Boztaş", "Oran", "Karalı",
-    "Kayman", "Algın", "Alim", "Savaş", "Cebeci", "Tanrıverdi", "Altuğ", "Sevecen", "Karaca",
-    "Tüfekçi", "Tekin", "Aktaş", "Özbek", "Demirci", "Köse", "Güney", "Acar", "Eroğlu",
-    "Gündüz", "Oğuz", "Kayaalp", "Alp", "Öz", "Güngör", "Karademir", "Uçar", "Akın",
-    "Sancak", "Arı", "Karataş", "Çınar", "Bilgin", "Aygün", "Karaman", "Karahan", "Bülbül",
-    "Aydoğan", "Keleş", "Doğru", "Atalay", "Akbulut", "Küçük", "Karakuş", "Ertaş",
-    "Eren", "Akça", "Berk", "Köksal", "Çiçek", "Aksu", "Özmen", "Ay", "Akkuş", "Kocaman",
-    "Sarıkaya", "Akgün", "Bilge", "Kurtul", "Karakaş", "Açıkgöz", "Arıkan", "Karagöz", "Akyıldız",
-    "Akbaş", "Güçlü", "Güzel", "Genç", "Büyük", "Tuncer", "Güven", "Özen", "Çiçek", "Can",
-    "Yüksel", "Atasoy", "Çiftçi", "Duman", "Sönmez", "Göçer", "Yavuz"
+    "Açıkgöz", "Ağca", "Akbaş", "Akbulut", "Akgül", "Akgün", "Akyıldız", "Akın", "Akkuş", "Aksoy",
+    "Alim", "Alkan", "Altuğ", "Algın", "Arslan", "Arı", "Arıkan", "Arıtan", "Arısoy", "Arıtaş",
+    "Aslan", "Atalay", "Atasoy", "Ateş", "Ay", "Aydemir", "Aygün", "Ayhan", "Aytaç", "Aytaş",
+    "Aydoğan", "Ayhan", "Aytaç", "Aytaş", "Bora", "Baş", "Bayram", "Bayraktar", "Berk", "Bilgin",
+    "Boz", "Bozkurt", "Boztaş", "Bülbül", "Büyük", "Can", "Cebeci", "Cengiz", "Çalışkan", "Çamurcu", "Çamuroğlu", "Çakır", "Çakıroğlu", "Çelik",
+    "Çetin", "Çetinkaya", "Çiftçi", "Çiçek", "Çınar", "Demir", "Demircan", "Demirci", "Demirel", "Doğan",
+    "Doğru", "Duman", "Erbay", "Erdem", "Eren", "Eren", "Eroğlu", "Ertaş", "Erçetin", "Eryılmaz",
+    "Güler", "Göçer", "Göçmen", "Güçlü", "Gül", "Gülen", "Güler", "Güngör", "Güneş", "Güven", "Güz", "Gür",
+    "Karaca", "Karademir", "Karagöz", "Karahan", "Karakaş", "Karalı", "Karataş", "Karakuş", "Karaman", "Karaoğlu",
+    "Kayman", "Kazanan", "Keleş", "Kılıç", "Kılıçoğlu", "Kocaman", "Koç", "Koçak", "Koçyiğit", "Koşar",
+    "Kurt", "Kurtul", "Kurtuluş", "Kurtul", "Kurtul", "Küçük", "Köksal", "Köse", "Öz", "Özen",
+    "Özbek", "Özcan", "Özdemir", "Özkan", "Özmen", "Öztürk", "Polat", "Sarı", "Sarıkaya", "Savaş",
+    "Sevecen", "Serbest", "Sönmez", "Sönmez", "Sözer", "Şahin", "Şahiner", "Şahin", "Şahin", "Şimşek",
+    "Şolta", "Şen", "Şentürk", "Tanrıverdi", "Taş", "Taşkın", "Tatlıtuğ", "Tekin", "Tekinoğlu", "Temiz", "Temizer", "Tosun", "Tuncer",
+    "Turan", "Turgal", "Tunç", "Tüfekçi", "Uçar", "Uysal", "Uzun", "Yalçın", "Yaman", "Yavuz",
+    "Yıldız", "Yılmaz", "Yılmazer", "Yüksel", "Zengin", "Zarif"
 ]
 
-# Lists of possible values for some columns
-# Dictionary that maps universities to their cities
 university_to_city = {
     "Koc University": "Istanbul",
     "Beykent University": "Istanbul",
@@ -127,7 +120,7 @@ university_to_city = {
 fields = [
     "Law", "Education", "Economics", "Business", "Computer Engineering", "Civil Engineering", 
     "Mechanical Engineering", "Electrical Engineering", "Chemical Engineering", "Aerospace Engineering",
-    "Physics", "Chemistry", "Biology", "Environmental Science", "Architecture, Industrial Engineering"
+    "Physics", "Chemistry", "Biology", "Environmental Science", "Architecture", "Industrial Engineering"
 ]
 
 # Universities
@@ -150,72 +143,62 @@ workplaces = [
     "Havelsan", "Roketsan", "Siemens Turkey", "Microsoft Turkey", "Google Turkey", "IBM Turkey", "Huawei Turkey" ,
     "Dogus Holding", "Alarko Holding", "TAV Airports", "Dogan Holding", "Okan Holding", "Amazon Turkey", "Trendyol",
     "YemekSepeti", "Getir", "HepsiBuarda", "Netflix Turkey", "Turkcell", "Vodafone", "Tueknet", "Sahibinden", "Cisco"
+    "GlassHouse", "Not Employed"
 ]
 
 # Cities
 cities = [
     "Istanbul", "Ankara", "Izmir", "Antalya", "Bursa", "Adana", "Gaziantep", "Samsun", "Mersin", "Konya",
     "Trabzon", "Kayseri", "Van", "Diyarbakir", "Erzurum", "Denizli", "Kocaeli", "Sakarya", "Eskisehir",
-    "Canakkale", "Mugla"
-]
-
-# Districts
-districts = [
-    "Kadikoy", "Besiktas", "Bakirkoy", "Sisli", "Sariyer", "Uskudar", "Kizilay", "Cankaya", "Bornova", "Karsiyaka",
-    "Maltepe", "Kartal", "Beyoglu", "Fatih", "Beylikduzu", "Atasehir", "Bagcilar", "Bahcelievler", "Zeytinburnu",
-    "Mamak", "Altindag", "Etimesgut", "Kecioren", "Yenimahalle", "Gaziemir", "Buca", "Guzelbahce", "Konak",
-    "Nilufer", "Yuregir", "Mezitli", "Ilkadim", "Merkezefendi", "Kocasinan"
+    "Canakkale", "Mugla", "Tekirdağ", "Edirne"
 ]
 
 interests = [
     'Native App Development', 'Cross-platform App Development', 'Front End Design', 'Back End Design', 'Java', 'Python', 'Unity Game Development', 
     'Unreal Engine Game Devlopment', 'Mobile Game Development', 'Android', 'IOS', 'JavaScript', 'Machine Learning', 'Data Science', 
     'Artificial Intelligence', 'Web Development', 'Mobile Development', 'Cloud Computing', 'Internet of Things (IoT)', 'Cybersecurity', 
-    'Blockchain Technology', 'Augmented Reality', 'Virtual Reality', 'Computer Graphics', 'Robotics', 'Quantum Computing', 'Bioinformatics', 
+    'Blockchain Technology', 'Augmented Reality', 'Virtual Reality', 'Computer Graphics', 'Robotics', 'Quantum Computing', 'Computer Networking', 
     'Natural Language Processing', 'Image Generation', 'Graphic Design', 'Entrepreneurship', 'Startup', 'Marketing', 'E-commerce', 
     'Illustration', 'Animation', 'Photography', 'Video Production', 'Music Production', 'Creative Writing', 'Film Making', 'Interior Design', 
-    'Fashion Design', 'Typography', 'Fine Arts', 'Digital Art', 'Physics', 'Chemistry', 'Biology', 'Astronomy', 'Geology', 'Ecology', 'Mathematics', 
-    'Statistics', 'Neuroscience', 'Genetics', 'Meteorology', 'Oceanography', 'Botany', 'Literature', 'Languages', 'Computer Networking', 
+    'Digital Art', 'Physics', 'Chemistry', 'Biology', 'Astronomy', 'Geology', 'Mathematics', 'Statistics', 'Neuroscience', 'Literature', 'Languages', 
     'Database Management', 'DevOps', 'User Experience (UX) Design', 'User Interface (UI) Design', 'Ethical Hacking', 'Penetration Testing', 
     'Digital Marketing', 'Content Writing', 'Search Engine Optimization (SEO)', 'Quality Assurance (QA)', 'Virtual Assistant Services', 
-    'Technical Support', 'Freelancing', 'Generative AI', 'Software Development', 'Flutter development', 'React Native Development', 'Embedded Systems'
+    'Freelancing', 'Generative AI', 'Software Development', 'Flutter development', 'React Native Development', 'Embedded Systems'
 ]
 
 purposes = [
     "project partner", "startup", "networking", "brain storming", "project assist", "freelance", "other", 'study partner'
 ]
 
-
 cities_to_district = {
-    "Istanbul": ["Kadikoy", "Besiktas", "Bakirkoy", "Sisli", "Sariyer", "Uskudar","Mecidiyekoy", "Taksim", "Erenkoy", "Tarabya", "Levent", "4. Levent"],
-    "Ankara": ["Cankaya", "Kizilay", "Kecioren", "Mamak", "Etimesgut", "Yenimahalle", "Sincan"],
-    "Izmir": ["Konak", "Bornova", "Karsiyaka", "Buca", "Guzelyali", "Alsancak", "Bayrakli"],
-    "Antalya": ["Muratpasa", "Konyaalti", "Kepez", "Dosemealti", "Lara", "Aksu"],
-    "Bursa": ["Osmangazi", "Nilufer", "Yildirim", "Gursu", "Gemlik", "Mudanya", "Inegol"],
-    "Adana": ["Seyhan", "Yuregir", "Ceyhan", "Aladag", "Karaisali"],
-    "Gaziantep": ["Sehitkamil", "Sahinbey", "Nizip", "Oguzeli", "Karkamis"],
-    "Samsun": ["Ilkadim", "Atakum", "Canik", "Tekkeko", "Yakakent"],
-    "Mersin": ["Akdeniz", "Yenisehir", "Mezitli", "Toroslar", "Erdemli"],
-    "Konya": ["Selcuklu", "Meram", "Karatay", "Ereğli", "Beyşehir"],
-    "Trabzon": ["Ortahisar", "Akcaabat", "Yomra", "Arsin", "Arakli"],
-    "Kayseri": ["Melikgazi", "Kocasinan", "Talas", "Bünyan", "Felahiye"],
-    "Van": ["İpekyolu", "Tusba", "Edremit", "Ercis", "Gurpinar"],
-    "Diyarbakir": ["Bağlar", "Yenişehir", "Sur", "Ergani", "Bismil"],
-    "Erzurum": ["Yakutiye", "Palandoken", "Aziziye", "Oltu", "Karakocan"],
-    "Denizli": ["Merkezefendi", "Pamukkale", "Buldan", "Sarayköy", "Çal"],
-    "Kocaeli": ["İzmit", "Gebze", "Körfez", "Darica", "Gölcük"],
-    "Sakarya": ["Serdivan", "Adapazari", "Arifiye", "Sapanca", "Ferizli"],
-    "Eskisehir": ["Tepebasi", "Odunpazari", "Çankaya", "Sivrihisar", "Mihalgazi"],
-    "Canakkale": ["Merkez", "Biga", "Çan", "Eceabat", "Gelibolu"],
-    "Mugla": ["Bodrum", "Fethiye", "Marmaris", "Menteşe", "Dalaman"]
+    "Istanbul": ["Eyüp", "Tarabya", "Sarıyer", "4. Levent", "Levent", "Kağıthane", "Beşiktaş", "Şişli", "Mecidiyeköy", "Üsküdar", "Kadıköy", "Taksim", "Kartal", "Tuzla"],
+    "Ankara": ["Etimesgut", "Yenimahalle", "Çankaya", "Keçiören", "Altındağ" "Akyurt","Kalecik"],
+    "Izmir": ["Foça","Menemen","Karşıyaka","Bornova","Buca","Narlıdere","Güzelbahçe","Urla","Çeşme"],
+    "Antalya": ["Kaş","Kale","Finike","Kumluca","Kemer","Konyaaltı","Muratpaşa","Manavgat","Alanya"],
+    "Bursa": ["Karacabey","Mudanya","Gemlik","Orhangazi","İznik","Yenişehir","İnegöl"],
+    "Adana": ["Karataş","Yumurtalık","Ceyhan","İmamoğlu","Kozan","Aladağ","Feke","Saimbeyli"],
+    "Gaziantep": ["Nurdağı","Şehitkamil","Yavuzeli","Nizip","Karkamış","Oğuzeli"],
+    "Samsun": ["Alaçam","Bafra","Havza","Ladik","Asarcik","Ayvacık","Salıpazarı"],
+    "Konya": ["Beyşehir", "Seydişehir", "Bozkır", "Akören", "Çumra", "Karatay"],
+    "Trabzon": ["Çarşıbaşı", "Akcaabat", "Ortahisar", "Yomra", "Arsin", "Araklı", "Sürmene", "Of"],
+    "Tekirdağ": ["Süleymanpaşa", "Çorlu", "Malkara", "Çerkezköy", "Şarköy"],
+    "Edirne": ["Havsa", "Uzunköprü", "Keşan", "İpsala", "Enez"],
+    "Mugla": ["Bodrum", "Milas", "Yatağan", "Ula", "Marmaris", "Köyceğiz", "Dalaman", "Fethiye"],
+    "Canakkale": ["Yenice", "Biga", "Lapseki", "Çanakkale Merkez","Ezine", "Ayvacık"],
+    "Eskisehir": ["Tepebasi", "Odunpazari", "Seyitgazi", "Çifteler", "Mahmudiye","Sivrihisar"],
+    "Mersin": ["Anamur", "Bozyazı", "Gülnar", "Silifke","Erdemli", "Tarsus"],
+    "Sakarya": ["Serdivan", "Adapazari", "Sapanca", "Arifiye", "Erenler", "Karapürçek", "Akyazı"],
+    "Van": ["Erciş", "Muradiye", "Çaldıran", "Özalp","Saray","Başkale"],
+    "Kocaeli": ["Darıca", "Gebze", "Dilovası", "Körfez", "Derince", "İzmit", "Kartepe"],
+    "Diyarbakir": ["Kulp", "Lice", "Hani", "Dicle","Ergani", "Çüngüş"],
+    "Denizli": ["Çameli","Acıpayam","Tavas","Serinhisar","Bozkurt","Çivril"],
+    "Erzurum": ["Aşkale", "Çat", "Palandöken", "Tekman", "Hınıs", "Karayazı", "Horasan"],
+    "Kayseri": ["Pınarbaşı", "Sarız", "Tomarza", "Develi","Yahyâlı", "Yeşilhisar"]
 }
-
-
-
 
 # Initialize an empty list to store the dataset
 data = []
-data.append(f"id/name/surname/email/birthDate/allowOppositeGender/gender/field/interest1/interest2/interest3/interest4/interest5/attendsUni/university/workplace/purpose/online/f2f/country/city/district/joinDate/rating\n")
+data.append(f"id/name/surname/email/birthDate/allowOppositeGender/gender/field/interest1/interest2/interest3/interest4/interest5/attendsUni/university/workplace/purpose/online/f2f/country/city/district/joinDate/rating/uniOnly/priority\n")
 json_data = []
 
 # MEF University students counter
@@ -225,23 +208,31 @@ mef_count = 0
 for idx in range(num_entries):
     # Create user data
     user_id = start_id + idx
-    name = random.choice(names)
+
+     # Gender: 'male', 'female', or 'other' (15% must be 'other')
+    gender_distribution = ["male", "female", "other"]
+    gender_weights = [0.425, 0.425, 0.150]
+    gender = random.choices(gender_distribution, weights=gender_weights, k=1)[0]
+
+    if gender=="male":
+        name = random.choice(male_names)
+    elif gender=="female":
+        name = random.choice(female_names)
+    elif gender=="other":
+        pool = random.choice([male_names, female_names])
+        name = random.choice(pool)
+    
     surname = random.choice(surnames)
     
     # Email based on name and surname
     email = f"{name.lower()}_{surname.lower()}{random.choice(['', str(random.randint(1, 99))])}@{random.choice(['gmail.com', 'hotmail.com', 'yahoo.com', 'outlook.com'])}"
     
     # Random birth date, mostly from the '90s, '80s, and early 2000s
-    birth_year = random.choice(range(1975, 2007))
+    birth_year = random.choice(range(1980, 2007))
     birth_date = f"{birth_year}-{random.randint(1, 12):02d}-{random.randint(1, 28):02d}"
     
     # Allow opposite gender (1 or 0)
     allow_opposite_gender = random.choice([0, 1])
-    
-    # Gender: 'male', 'female', or 'other' (15% must be 'other')
-    gender_distribution = ["male", "female", "other"]
-    gender_weights = [0.425, 0.425, 0.150]
-    gender = random.choices(gender_distribution, weights=gender_weights, k=1)[0]
     
     # Field
     field = random.choice(fields)
@@ -249,23 +240,20 @@ for idx in range(num_entries):
     interest1 = random.choice(interests)
     interest2 = random.choice([inter for inter in interests if inter != interest1])
     interest3 = random.choice([inter for inter in interests if inter != interest1 and inter != interest2])
-    interest4 = ""
-    interest5 = ""
-
-    if random.choice([True, False]):
-        interest4 = random.choice([inter for inter in interests if inter != interest1 and inter != interest2 and inter != interest3])
-        if random.choice([True, False]):
-            interest5 = random.choice([inter for inter in interests if inter != interest1 and inter != interest2 and inter != interest3 and inter != interest4])
-
+    interest4 = random.choice([inter for inter in interests if inter != interest1 and inter != interest2 and inter != interest3])
+    interest5 = random.choice([inter for inter in interests if inter != interest1 and inter != interest2 and inter != interest3 and inter != interest4])
 
     purpose = random.choice(purposes)
 
     # Attends university (1 or 0)
     attends_university = 1 if birth_year > 1994 else random.choice([0, 1])
+    uniOnly = 0
     
     # University
     university = ""
     if attends_university:
+        uniOnly = random.choices([0, 1], weights=[0.15,0.85])[0]
+
         # Choose a university from the list
         if mef_count < 75:
             university = "MEF University"
@@ -280,12 +268,15 @@ for idx in range(num_entries):
     
     # Online meetings (1 or 0)
     online = random.choice([0, 1])
-    
-    # F2F meetings (1 or 0)
-    # Ensure that online and f2f are not both 0
     f2f = random.choice([0, 1])
-    if online == 0 and f2f == 0:
-        f2f = 1
+    while online == 0 and f2f == 0:
+        online = random.choice([0, 1])
+        f2f = random.choice([0, 1])
+
+    if f2f == 1:
+        priority = random.choices([0,1,2,3,4,5], weights=[0.165,0.165,0.165,0.165,0.175,0.165])[0]
+    else:
+        priority = random.choice([0,1,2,3,5])
     
     # Country, city, and district
     country = "Turkiye"
@@ -297,7 +288,8 @@ for idx in range(num_entries):
     join_date = str(fake.date_between_dates(start_join_date, end_join_date))
     
     # Rating from 1 to 5 (mostly over 3.5)
-    rating = round(random.uniform(3.5, 5.0), 2) if random.random() > 0.3 else round(random.uniform(2, 4.0), 2)
+    rating = round(random.uniform(3.5, 5.0), 2) if random.random() > 0.3 else round(random.uniform(2.5, 4.5), 2)
+    
 
     obj = {
         "user_id": user_id,
@@ -323,11 +315,13 @@ for idx in range(num_entries):
         "city": city,
         "district": district,
         "join_date": join_date,
-        "rating": rating
+        "rating": rating,
+        "uniOnly": uniOnly,
+        "priority": priority
     }
     
     # Format the data entry
-    entry = f"{user_id}/{name}/{surname}/{email}/{birth_date}/{allow_opposite_gender}/{gender}/{field}/{interest1}/{interest2}/{interest3}/{interest4}/{interest5}/{attends_university}/{university}/{workplace}/{purpose}/{online}/{f2f}/{country}/{city}/{district}/{join_date}/{rating}\n"
+    entry = f"{user_id}/{name}/{surname}/{email}/{birth_date}/{allow_opposite_gender}/{gender}/{field}/{interest1}/{interest2}/{interest3}/{interest4}/{interest5}/{attends_university}/{university}/{workplace}/{purpose}/{online}/{f2f}/{country}/{city}/{district}/{join_date}/{rating}/{uniOnly}/{priority}\n"
     
     # Add the entry to the data list
     data.append(entry)

@@ -6,7 +6,7 @@ import sqlite3
 
 def main():
     warnings.filterwarnings("ignore")
-    df=pd.read_csv(r'C:\Users\berke\Downloads\WnM Veri Seti\Database Generator\WnM_datatset.txt',sep="/")
+    df=pd.read_csv(r'WnM_datatset.txt',sep="/")
 
     con = sqlite3.connect('WnM_data.db')
     df.to_sql(name="user_data",con=con,if_exists= "replace", index=False)
